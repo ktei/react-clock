@@ -1,4 +1,14 @@
 import React from 'react';
+import moment from 'moment-timezone';
+
+import './clock.css';
+
+function padZero(number) {
+  if (number < 10) {
+    return `0${number}`;
+  }
+  return `${number}`;
+}
 
 export default class Clock extends React.Component {
   constructor() {
@@ -21,9 +31,18 @@ export default class Clock extends React.Component {
   }
 
   render() {
+    const { time } = this.state;
+
     return (
-      <div>
-        <h2>Current time: {this.state.time.toLocaleTimeString()}</h2>
+      <div className="jr-clock">
+        <div className="jr-clock__date">{time.toDateString()}</div>
+        <div className="jr-clock__time">
+          <div className="jr-clock__time-square">{padZero(time.getHours())}</div>
+          <span className="jr-clock__time-colon">:</span>
+          <div className="jr-clock__time-square">{padZero(time.getMinutes())}</div>
+          <span className="jr-clock__time-colon">:</span>
+          <div className="jr-clock__time-square">{padZero(time.getSeconds())}</div>
+        </div>
       </div>
     );
   }
